@@ -1,0 +1,14 @@
+[package]
+name = "fps_server"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+bincode.workspace = true
+fps_shared = { path = "../fps_shared" }
+glam.workspace = true
+hecs.workspace = true
+tokio.workspace = true
+tracing.workspace = true

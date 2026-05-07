@@ -1,0 +1,23 @@
+[package]
+name = "fps_client"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+anyhow.workspace = true
+fps_shared = { path = "../fps_shared" }
+glam.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+wgpu.workspace = true
+winit.workspace = true
+pollster.workspace = true
+
+[features]
+default = []
+audio = ["dep:rodio"]
+
+[dependencies.rodio]
+workspace = true
+optional = true

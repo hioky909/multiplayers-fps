@@ -1,0 +1,28 @@
+[workspace]
+members = [
+  "crates/fps_shared",
+  "crates/fps_server",
+  "crates/fps_client",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+version = "0.1.0"
+
+[workspace.dependencies]
+anyhow = "1"
+bincode = "1.3"
+glam = { version = "0.27", features = ["serde"] }
+hecs = "0.10"
+serde = { version = "1", features = ["derive"] }
+thiserror = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "time", "sync"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+toml = "0.8"
+wgpu = "0.19"
+winit = "0.29"
+rodio = "0.18"
+pollster = "0.3"
