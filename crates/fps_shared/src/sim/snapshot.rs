@@ -2,6 +2,8 @@ use std::collections::VecDeque;
 
 use crate::net::protocol::Snapshot;
 
+const MAX_SNAPSHOT_HISTORY: usize = 64;
+
 #[derive(Debug, Default)]
 pub struct SnapshotBuffer {
     snapshots: VecDeque<Snapshot>,
@@ -10,7 +12,7 @@ pub struct SnapshotBuffer {
 impl SnapshotBuffer {
     pub fn push(&mut self, snapshot: Snapshot) {
         self.snapshots.push_back(snapshot);
-        while self.snapshots.len() > 64 {
+        while self.snapshots.len() > MAX_SNAPSHOT_HISTORY {
             self.snapshots.pop_front();
         }
     }

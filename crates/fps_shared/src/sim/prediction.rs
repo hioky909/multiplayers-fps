@@ -2,6 +2,8 @@ use glam::Vec3;
 
 use crate::net::protocol::{EntityState, Snapshot, UserCommand};
 
+const GROUND_PLANE_Y: f32 = 0.0;
+
 #[derive(Debug, Clone)]
 pub struct PredictedPlayer {
     pub net_id: u32,
@@ -12,7 +14,7 @@ pub struct PredictedPlayer {
 
 impl PredictedPlayer {
     pub fn apply_input(&mut self, cmd: &UserCommand, speed: f32) {
-        let wish = Vec3::new(cmd.move_axis[0], 0.0, cmd.move_axis[1]);
+        let wish = Vec3::new(cmd.move_axis[0], GROUND_PLANE_Y, cmd.move_axis[1]);
         self.velocity = wish.clamp_length_max(1.0) * speed;
         self.position += self.velocity * cmd.dt;
         self.last_applied_input = cmd.sequence;

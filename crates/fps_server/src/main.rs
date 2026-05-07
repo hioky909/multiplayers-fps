@@ -12,6 +12,8 @@ use hecs::World;
 use tokio::net::UdpSocket;
 use tracing::{debug, info, warn};
 
+const MTU_SAFE_SNAPSHOT_BYTES: usize = 1200;
+
 #[derive(Debug)]
 struct ClientSession {
     net_id: u32,
@@ -130,12 +132,12 @@ async fn broadcast_snapshot(
 
     let packet = Packet::Snapshot(Snapshot { tick, entities });
     let payload = bincode::serialize(&packet)?;
-    if payload.len() > 1200 {
+    if payload.len() > MTU_SAFE_SNAPSHOT_BYTES {
         warn!(size = payload.len(), "snapshot larger than MTU-safe target");
     }
 
     for addr in destinations {
-        let _ = socket.send_to(&payload, addr).await?;
+        socket.send_to(&payload, addr).await?;
     }
     Ok(())
 }
